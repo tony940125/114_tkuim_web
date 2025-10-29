@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "1020",
+			"path": "../../../../projects/114_tkuim_web/1020"
+		},
+		{
+			"name": "114_tkuim_web",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "114_tkuim_web"
+	}
+}   
