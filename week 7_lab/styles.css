@@ -1,0 +1,20 @@
+body { font-family: Arial; background:#f2f2f2; padding:30px; }
+.container { max-width:450px; margin:auto; background:#fff; padding:25px 30px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); }
+h2 { text-align:center; margin-bottom:25px; }
+label { display:block; margin-top:20px; font-weight:500; }
+input[type=text], input[type=email], input[type=tel], input[type=password] { width:100%; padding:10px; margin-top:5px; box-sizing:border-box; border:1px solid #ccc; border-radius:5px; }
+
+button { margin-top:20px; padding:12px; width:48%; margin-right:2%; cursor:pointer; border:none; border-radius:5px; background:#007bff; color:#fff; font-weight:bold; transition:0.3s; }
+button:hover:not(:disabled) { background:#0056b3; }
+button:disabled { background:#ccc; cursor:not-allowed; }
+
+.error-message { color:red; font-size:0.85em; margin:5px 0 0 0; }
+.success-message { color:green; font-size:1em; margin-top:15px; text-align:center; }
+
+.strength-container { display:flex; align-items:center; margin-top:5px; }
+.strength-bar { flex:1; height:15px; background:#ddd; border-radius:6px; position:relative; }
+#strengthIndicator { height:100%; width:0%; border-radius:6px; transition: width 0.3s, background 0.3s; }
+#strengthText { margin-left:10px; font-weight:bold; min-width:40px; }
+
+#interestsContainer label { display:inline-block; padding:5px 10px; margin:5px 5px 0 0; border-radius:4px; border:1px solid #ccc; cursor:pointer; transition:0.3s; }
+#interestsContainer label.checked { background:#cce5ff; border-color:#007bff; }
