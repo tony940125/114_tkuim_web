@@ -1,0 +1,23 @@
+:root {
+  --radius: 1rem;
+}
+html, body { font-family: 'Noto Sans TC', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; }
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bs-body-bg: #111827;
+  --bs-body-color: #e5e7eb;
+  --bs-card-bg: #0b1220;
+}
+.bg-gradient-hero {
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+}
+.card-fade {
+  animation: fadeUp .35s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translate3d(0, 6px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@media (max-width: 576px) {
+  #hero .input-group { margin-top: .5rem; }
+}
