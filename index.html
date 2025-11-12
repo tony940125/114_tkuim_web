@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-Hant" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Buddy Matcher｜期中專案</title>
+  <meta name="description" content="快速尋找讀書夥伴與自辦讀書會，支援搜尋、RWD、表單驗證與 GitHub Pages 展示。">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="border-bottom bg-body sticky-top">
+    <nav class="navbar navbar-expand-lg container py-2">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <img src="./assets/logo.svg" alt="logo" width="28" height="28">
+        <strong>Study Buddy Matcher</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+          <li class="nav-item"><a class="nav-link" href="#sessions">讀書會列表</a></li>
+          <li class="nav-item"><a class="nav-link" href="#create">建立讀書會</a></li>
+          <li class="nav-item">
+            <div class="form-check form-switch m-0">
+              <input class="form-check-input" type="checkbox" id="themeToggle" aria-label="深色模式切換">
+              <label class="form-check-label small" for="themeToggle">深色模式</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container my-4">
+    <section class="mb-4" id="hero">
+      <div class="p-4 p-md-5 rounded-4 bg-gradient-hero text-white">
+        <div class="row g-4 align-items-center">
+          <div class="col-md-7">
+            <h1 class="display-6 fw-bold mb-2">用最簡單的方式，找到你的讀書夥伴</h1>
+            <p class="lead m-0">支援快速搜尋、即時表單驗證、RWD、localStorage、DOM 動態渲染與動畫效果。</p>
+          </div>
+          <div class="col-md-5">
+            <div class="input-group input-group-lg">
+              <span class="input-group-text">🔎</span>
+              <input id="searchInput" type="search" class="form-control" placeholder="搜尋科目、地點、關鍵字…">
+            </div>
+            <small class="text-white-50 d-block mt-2">提示：輸入「程式」、「統計」、「資料結構」試試看！</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sessions" class="mb-5">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="h4 m-0">目前可加入的讀書會</h2>
+        <div class="d-flex gap-2">
+          <select id="sortSelect" class="form-select form-select-sm" style="max-width: 220px;">
+            <option value="timeAsc">依時間（近→遠）</option>
+            <option value="timeDesc">依時間（遠→近）</option>
+            <option value="titleAsc">依標題（A→Z）</option>
+          </select>
+          <button id="resetFilterBtn" class="btn btn-outline-secondary btn-sm">清除篩選</button>
+        </div>
+      </div>
+      <div id="cardsWrap" class="row g-3">
+        <!-- JS 動態注入卡片 -->
+      </div>
+      <p id="emptyState" class="text-center text-muted d-none py-4">找不到符合條件的讀書會，換個關鍵字試試？</p>
+    </section>
+
+    <section id="create" class="mb-5">
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <h2 class="h4 mb-3">建立自己的讀書會</h2>
+          <form id="createForm" novalidate>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="title" class="form-label">主題（必填）</label>
+                <input type="text" id="title" name="title" class="form-control" required minlength="2" maxlength="40" placeholder="例如：期中衝刺－網頁程式設計">
+                <div class="invalid-feedback">請輸入 2–40 字的主題。</div>
+              </div>
+              <div class="col-md-3">
+                <label for="date" class="form-label">日期（必填）</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+                <div class="invalid-feedback">請選擇日期。</div>
+              </div>
+              <div class="col-md-3">
+                <label for="time" class="form-label">時間（必填）</label>
+                <input type="time" id="time" name="time" class="form-control" required>
+                <div class="invalid-feedback">請選擇時間。</div>
+              </div>
+              <div class="col-md-6">
+                <label for="place" class="form-label">地點（必填）</label>
+                <input type="text" id="place" name="place" class="form-control" required placeholder="例如：圖書館 3F、B402 教室">
+                <div class="invalid-feedback">請填寫地點。</div>
+              </div>
+              <div class="col-md-3">
+                <label for="quota" class="form-label">人數上限（1–30）</label>
+                <input type="number" id="quota" name="quota" class="form-control" min="1" max="30" value="6" required>
+                <div class="invalid-feedback">請輸入 1–30 之間的人數。</div>
+              </div>
+              <div class="col-md-3">
+                <label for="tag" class="form-label">分類標籤</label>
+                <select id="tag" name="tag" class="form-select">
+                  <option value="其他">其他</option>
+                  <option value="程式">程式</option>
+                  <option value="數學">數學</option>
+                  <option value="商管">商管</option>
+                  <option value="語言">語言</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="desc" class="form-label d-flex justify-content-between">
+                  <span>補充說明（最多 120 字）</span>
+                  <small id="descCount" class="text-muted">0 / 120</small>
+                </label>
+                <textarea id="desc" name="desc" class="form-control" rows="3" maxlength="120" placeholder="可補充預習內容、攜帶物品、程度需求…"></textarea>
+              </div>
+            </div>
+            <div class="d-flex gap-2 mt-3">
+              <button class="btn btn-primary" type="submit">建立讀書會</button>
+              <button class="btn btn-outline-secondary" type="reset">清除</button>
+            </div>
+          </form>
+          <div id="createToast" class="toast align-items-center text-bg-success border-0 position-fixed bottom-0 end-0 m-4" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">讀書會已建立並儲存！</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-top py-4">
+    <div class="container small text-muted d-flex flex-wrap gap-2 justify-content-between align-items-center">
+      <span>© 2025 Study Buddy Matcher</span>
+      <span>技術：HTML5、CSS3、Bootstrap 5、JavaScript、DOM、Constraint Validation、localStorage、RWD</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
